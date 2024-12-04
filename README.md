@@ -1,4 +1,4 @@
-# Market API Observability Platform
+# Market Data API Observability Platform
 
 An observability platform for tracking real-time performance metrics of YFinance API requests. Built to monitor, trace, and analyze system behavior using OpenTelemetry, Prometheus, and Grafana. Containerized with Docker.
 

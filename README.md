@@ -1,4 +1,4 @@
-# Market Observability Platform
+# Market API Observability Platform
 
 An observability platform for tracking real-time performance metrics of YFinance API requests. Built to monitor, trace, and analyze system behavior using OpenTelemetry, Prometheus, and Grafana. Containerized with Docker.
 
@@ -14,8 +14,8 @@ An observability platform for tracking real-time performance metrics of YFinance
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/containerized-market-observability-platform.git
-   cd containerized-market-observability-platform
+   git clone https://github.com/yourusername/market-observability-platform.git
+   cd market-observability-platform
    ```
 
 2. Start the stack:

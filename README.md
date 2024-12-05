@@ -1,14 +1,14 @@
 # Market Data API Observability Platform
 
-An observability platform for tracking real-time performance metrics of YFinance API requests. Built to monitor, trace, and analyze system behavior using OpenTelemetry, Prometheus, and Grafana. Containerized with Docker.
+An observability platform that tracks real-time performance metrics of YFinance API requests. Built with OpenTelemetry for monitoring, Prometheus for data collection, and Grafana for the UI visualization layer. Everything runs in Docker containers!
 
 ## Features
-- Real-time stock market data streaming using YFinance
-- OpenTelemetry for system monitoring and performance analysis
-- Prometheus time-series metrics and data aggregation
-- Grafana for UI layer
-- Containerized deployment with Docker and Docker Compose
-- FastAPI backend with automatic API documentation
+- Get real-time stock data with YFinance
+- Monitor system performance using OpenTelemetry
+- Collect metrics with Prometheus
+- Visualize data through Grafana's UI layer
+- Easy deployment with Docker
+- FastAPI backend with built-in API docs
 
 ## Quick Start
 
@@ -18,56 +18,59 @@ An observability platform for tracking real-time performance metrics of YFinance
    cd market-observability-platform
    ```
 
-2. Start the stack:
+2. Start everything up:
    ```bash
    docker-compose up -d
    ```
 
-3. Access monitoring interfaces:
-   - Grafana: http://localhost:3000
-   - Prometheus: http://localhost:9090
-   - API Docs: http://localhost:8000/docs
+3. Check out the interfaces:
+   - Grafana: [http://localhost:3000](http://localhost:3000)
+   - Prometheus: [http://localhost:9090](http://localhost:9090)
+   - API Docs: [http://localhost:8000/docs](http://localhost:8000/docs)
 
-## Architecture
+## How It Works
 
-- **Data Collection**: FastAPI service with metric instrumentation
-- **Metrics Storage**: Prometheus time-series database
-- **Visualization**: Grafana dashboards
-- **Tracing**: OpenTelemetry collector and instrumentation
+- **Data Collection**: FastAPI grabs the data and tracks metrics
+- **Metrics Storage**: Prometheus stores all the data
+- **Tracing**: OpenTelemetry helps track system behavior
+- **Visualization**: Grafana provides the UI layer for data visualization
 
 ## Development
 
-1. Install dependencies:
+1. Set up your environment:
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: .\venv\Scripts\activate
+   cd backend
    pip install -r requirements.txt
    ```
 
-2. Run service:
+2. Run the service:
    ```bash
    python -m src.main
    ```
 
 ## Deployment
 
-1. Set environment variables:
+1. Set up your environment variables:
    ```bash
    cp .env.example .env
-   # Configure environment variables
+   # Add your settings to .env
    ```
 
-2. Deploy containers:
+2. Deploy the containers:
    ```bash
    docker-compose -f docker-compose.prod.yml up -d
    ```
 
-## License
-
-MIT License - see [LICENSE](LICENSE) for details
-## Requirements
+## What You Need
 
 - Docker Engine (20.10.0+)
 - Docker Compose (2.0.0+)
 - Python 3.9+ (for local development)
+
+## License
+
+MIT License - see [LICENSE](LICENSE) for details
+
 

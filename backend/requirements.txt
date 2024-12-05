@@ -1,0 +1,21 @@
+# web framework
+fastapi
+uvicorn
+pydantic
+
+# financial data
+yfinance
+pandas
+numpy
+
+# observability and monitoring
+prometheus-client
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-instrumentation-fastapi
+opentelemetry-exporter-prometheus
+
+# other and configuration
+requests
+aiohttp
+python-dotenv

@@ -3,12 +3,8 @@ from typing import Optional
 import yfinance as yf
 from datetime import datetime
 from .routes import options, earnings
-from .telemetry.instrumentation import setup_telemetry
 
 app = FastAPI(title="Market Data API")
-
-# Set up telemetry
-setup_telemetry(app)
 
 # Include routers
 app.include_router(options.router)

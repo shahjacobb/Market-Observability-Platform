@@ -10,12 +10,12 @@ An observability platform that analyzes real-time performance metrics and traces
 - FastAPI backend with built-in API docs
 
 ## todo
-- [ ] yfinance api expansion
-  - [ ] add historical data endpoints
-  - [ ] add company info/profile data
-  - [ ] add dividend data
-  - [ ] add options chain data
-  - [ ] add multiple symbol support
+- [x] yfinance api expansion
+  - [x] add historical data endpoints (/stock/{ticker}/historical)
+  - [x] add company info/profile data (/stock/{ticker}/info)
+  - [x] add dividend data (/stock/{ticker}/dividends)
+  - [x] add options chain data (/stock/{ticker}/options)
+  - [x] add multiple symbol support (/stocks/batch)
 - [ ] metrics to export
   - [ ] stock price fetch latency
   - [ ] successful vs failed yfinance calls

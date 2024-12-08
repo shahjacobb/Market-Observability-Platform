@@ -15,7 +15,29 @@ An observability platform ㅁthat analyzes real-time performance metrics and tra
   - [x] add company info/profile data (/stock/{ticker}/info)
   - [x] add dividend data (/stock/{ticker}/dividends)
   - [x] add options chain data (/stock/{ticker}/options)
-  - [] add multiple symbol support (/stocks/batch)
+  - [x] add multiple symbol support (/stocks/batch)
+
+  ## Current Status
+endpoints are partially broken - getting 500 errors across all endpoints aside from health check to root.
+- `/stock/{ticker}/price`
+- `/stock/{ticker}/historical`
+- `/stock/{ticker}/options`
+- `/stock/{ticker}/info`
+- `/stock/{ticker}/dividends`
+- `/stock/{ticker}/earnings`
+
+main issue seems to be yfinance data not playing nice with json (numpy/pandas types being difficult). gotta fix the type conversion before sending responses back.
+
+**need to check expected output for each endpoint:**
+1. health check should return basic status + timestamp
+2. price endpoint needs clean float values
+3. historical data should format dates properly
+4. options chain needs readable strike prices
+5. company info should strip out any weird data types
+6. dividends gotta convert to standard format
+7. earnings need proper number formatting
+
+
 - [ ] metrics to export
   - [ ] stock price fetch latency
   - [ ] successful vs failed yfinance calls

@@ -13,12 +13,12 @@ app.include_router(earnings.router)
 # Core endpoints
 @app.get("/")
 async def health_check():
-    """Health check endpoint"""
+    """health check endpoint to verify api is running"""
     return {"status": "online", "timestamp": datetime.now().isoformat()}
 
 @app.get("/stock/{ticker}/price")
 async def get_current_price(ticker: str):
-    """Get current stock price"""
+    """get latest stock price and volume data for a single ticker"""
     try:
         stock = yf.Ticker(ticker)
         data = stock.history(period='1d')
@@ -38,7 +38,7 @@ async def get_historical_data(
     interval: str = Query(default='1d', description="Data interval (1d, 1wk, 1mo)"),
     period: str = Query(default='1mo', description="Historical period (1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max)")
 ):
-    """Get historical stock data"""
+    """get historical price data with customizable intervals and time periods"""
     try:
         stock = yf.Ticker(ticker)
         history = stock.history(period=period, interval=interval)

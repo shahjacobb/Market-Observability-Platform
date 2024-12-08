@@ -10,7 +10,7 @@ async def get_options_chain(
     ticker: str,
     date: Optional[str] = Query(None, description="Expiration date (YYYY-MM-DD). If none, returns all available dates")
 ):
-    """Get options chain data"""
+    """get options chain data including calls and puts for a specific expiration date, or list all available dates if no date provided"""
     try:
         stock = yf.Ticker(ticker)
         

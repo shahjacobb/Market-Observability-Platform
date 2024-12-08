@@ -15,7 +15,7 @@ An observability platform that analyzes real-time performance metrics and traces
   - [x] add company info/profile data (/stock/{ticker}/info)
   - [x] add dividend data (/stock/{ticker}/dividends)
   - [x] add options chain data (/stock/{ticker}/options)
-  - [] add multiple symbol support (/stocks/batch)
+  - [x] add multiple symbol support (/stocks/batch)
 - [ ] metrics to export
   - [ ] stock price fetch latency
   - [ ] successful vs failed yfinance calls

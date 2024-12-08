@@ -37,7 +37,7 @@ main issue seems to be yfinance data not playing nice with json (numpy/pandas ty
 6. dividends gotta convert to standard format
 7. earnings need proper number formatting
 
-
+## rest of todos
 - [ ] metrics to export
   - [ ] stock price fetch latency
   - [ ] successful vs failed yfinance calls

@@ -1,6 +1,6 @@
 # Market Data API Observability Platform
 
-An observability platform that analyzes real-time performance metrics and traces of YFinance API requests. Built with OpenTelemetry for monitoring, Prometheus for data collection, and Grafana for the UI visualization layer. Being containerized with Docker for deployment.
+An observability platform ㅁthat analyzes real-time performance metrics and traces of YFinance API requests. Built with OpenTelemetry for monitoring, Prometheus for data collection, and Grafana for the UI visualization layer - uses [Docker-compose](https://docs.docker.com/compose/) to run each service in a Docker container.
 
 ## Features
 - Get real-time stock data with YFinance
@@ -15,7 +15,7 @@ An observability platform that analyzes real-time performance metrics and traces
   - [x] add company info/profile data (/stock/{ticker}/info)
   - [x] add dividend data (/stock/{ticker}/dividends)
   - [x] add options chain data (/stock/{ticker}/options)
-  - [x] add multiple symbol support (/stocks/batch)
+  - [] add multiple symbol support (/stocks/batch)
 - [ ] metrics to export
   - [ ] stock price fetch latency
   - [ ] successful vs failed yfinance calls

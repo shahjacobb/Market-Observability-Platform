@@ -2,13 +2,12 @@ from fastapi import FastAPI, HTTPException, Query
 from typing import Optional
 import yfinance as yf
 from datetime import datetime
-from .routes import options, earnings
+from .routes import options
 
 app = FastAPI(title="Market Data API")
 
-# Include routers
+# Include only options router
 app.include_router(options.router)
-app.include_router(earnings.router)
 
 # Core endpoints
 @app.get("/")
@@ -78,6 +77,23 @@ async def get_dividend_data(ticker: str):
         return {
             "ticker": ticker,
             "dividend_history": dividends.to_dict()
+        }
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/stock/{ticker}/earnings")
+async def get_earnings_data(
+    ticker: str,
+    frequency: str = Query(default='yearly', description="Data frequency (yearly or quarterly)")
+):
+    """Get company earnings data"""
+    try:
+        stock = yf.Ticker(ticker)
+        earnings = stock.get_earnings(freq=frequency)
+        return {
+            "ticker": ticker,
+            "frequency": frequency,
+            "earnings_data": earnings.to_dict() if not earnings.empty else {}
         }
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

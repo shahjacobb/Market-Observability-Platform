@@ -18,31 +18,80 @@ An observability platform ㅁthat analyzes real-time performance metrics and tra
   - [x] add multiple symbol support (/stocks/batch)
 
   ## Current Status
-endpoints are partially broken - getting 500 errors across all endpoints aside from health check to root.
-- `/stock/{ticker}/price`
-- `/stock/{ticker}/historical`
-- `/stock/{ticker}/options`
-- `/stock/{ticker}/info`
-- `/stock/{ticker}/dividends`
-- `/stock/{ticker}/earnings`
 
-main issue seems to be yfinance data not playing nice with json (numpy/pandas types being difficult). gotta fix the type conversion before sending responses back.
+  ### API Server Setup
+  To test the endpoints:
+  1. `cd backend/`
+  2. Start the server: `uvicorn src.main:app --reload`
+  3. The API will be available at `http://localhost:8000`
 
-**need to check expected output for each endpoint:**
-1. health check should return basic status + timestamp
-2. price endpoint needs clean float values
-3. historical data should format dates properly
-4. options chain needs readable strike prices
-5. company info should strip out any weird data types
-6. dividends gotta convert to standard format
-7. earnings need proper number formatting
+  ### Endpoint Status
 
+  #### ✅ Working Endpoints
+  if you're trying to test these endpoints with curl, download jq to pretty print the JSON responses:
+  ```bash
+  brew install jq  # on macOS
+  ```
+
+  note: all endpoints are case sensitive - use uppercase tickers (AAPL not aapl)
+
+  1. **Health Check**
+  ```bash
+  curl http://localhost:8000/ | jq '.'
+  ```
+
+  2. **Stock Price**
+  ```bash
+  curl http://localhost:8000/stock/AAPL/price | jq '.'
+  ```
+
+  3. **Historical Data**
+  ```bash
+  # Default 1-month data
+  curl http://localhost:8000/stock/AAPL/historical | jq '.'
+
+  # Custom period and interval
+  curl "http://localhost:8000/stock/AAPL/historical?interval=1wk&period=1y" | jq '.'
+  ```
+
+  4. **Company Info**
+  ```bash
+  curl http://localhost:8000/stock/AAPL/info | jq '.'
+  ```
+
+  5. **Dividends**
+  ```bash
+  curl http://localhost:8000/stock/AAPL/dividends | jq '.'
+  ```
+
+  #### Non-Working Endpoints
+  okay these are not working and i need to fix them.
+  - Earnings Data (`/stock/{ticker}/earnings`) - Returns NoneType error
+  - Batch Stock Data (`/stocks/batch`) - Invalid JSON response
+  - Options Chain (`/stock/{ticker}/options`) - Not implemented yet
+
+  ### Development Notes
+  - Main focus is on fixing JSON serialization for complex data types (numpy/pandas)
+  - Need to implement proper type conversion for:
+    - Date formatting in historical data
+    - Strike prices in options chain
+    - Dividend history formatting
+    - Earnings data number formatting
+
+  ### Metrics Implementation
+  Added Prometheus metrics to track API performance:
+  - Request counts by endpoint
+  - Request latency measurements
+  - Stock symbol request frequency
+  - Error tracking by type
+  
+  Access metrics at `/metrics` endpoint for Prometheus scraping.
 
 - [ ] metrics to export
-  - [ ] stock price fetch latency
-  - [ ] successful vs failed yfinance calls
-  - [ ] number of unique symbols requested
-  - [ ] cache hit/miss ratio (if we add caching)
+  - [x] stock price fetch latency
+  - [x] successful vs failed yfinance calls
+  - [x] number of unique symbols requested
+
 - [ ] traces to implement
   - [ ] full request lifecycle for each endpoint
   - [ ] yfinance api call duration

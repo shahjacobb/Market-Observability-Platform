@@ -7,7 +7,7 @@ from .metrics import (
     PrometheusMiddleware,
     track_symbol_request,
     track_yfinance_operation,
-    metrics_endpoint
+    metrics_endpoint,
 )
 
 app = FastAPI(title="Market Data API")

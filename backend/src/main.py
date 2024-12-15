@@ -3,11 +3,25 @@ from typing import Optional
 import yfinance as yf
 from datetime import datetime
 from .routes import options
+from .metrics import (
+    PrometheusMiddleware,
+    track_symbol_request,
+    track_yfinance_operation,
+    metrics_endpoint
+)
 
 app = FastAPI(title="Market Data API")
 
-# Include only options router
+# Add Prometheus middleware
+app.add_middleware(PrometheusMiddleware)
+
+# Include options router
 app.include_router(options.router)
+
+# Metrics endpoint
+@app.get("/metrics")
+async def get_metrics():
+    return await metrics_endpoint()
 
 # Core endpoints
 @app.get("/")
@@ -19,15 +33,17 @@ async def health_check():
 async def get_current_price(ticker: str):
     """get latest stock price and volume data for a single ticker"""
     try:
-        stock = yf.Ticker(ticker)
-        data = stock.history(period='1d')
-        if not data.empty:
-            return {
-                "ticker": ticker,
-                "current_price": float(data['Close'].iloc[-1]),
-                "volume": int(data['Volume'].iloc[-1]),
-                "timestamp": datetime.now().isoformat()
-            }
+        track_symbol_request(ticker)
+        with YFINANCE_CALLS.labels(operation='get_price').time():
+            stock = yf.Ticker(ticker)
+            data = stock.history(period='1d')
+            if not data.empty:
+                return {
+                    "ticker": ticker,
+                    "current_price": float(data['Close'].iloc[-1]),
+                    "volume": int(data['Volume'].iloc[-1]),
+                    "timestamp": datetime.now().isoformat()
+                }
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -39,8 +55,10 @@ async def get_historical_data(
 ):
     """get historical price data with customizable intervals and time periods"""
     try:
-        stock = yf.Ticker(ticker)
-        history = stock.history(period=period, interval=interval)
+        track_symbol_request(ticker)
+        with YFINANCE_CALLS.labels(operation='get_historical').time():
+            stock = yf.Ticker(ticker)
+            history = stock.history(period=period, interval=interval)
         
         if history.empty:
             raise HTTPException(status_code=404, detail=f"No data found for ticker {ticker}")
@@ -59,10 +77,11 @@ async def get_historical_data(
 async def get_company_info(ticker: str):
     """Get company profile and information"""
     try:
-        stock = yf.Ticker(ticker)
-        info = stock.info
+        track_symbol_request(ticker)
+        with YFINANCE_CALLS.labels(operation='get_info').time():
+            stock = yf.Ticker(ticker)
+            info = stock.info
         
-        # Return only essential company information
         essential_info = {
             "ticker": ticker,
             "company_info": {
@@ -87,8 +106,10 @@ async def get_company_info(ticker: str):
 async def get_dividend_data(ticker: str):
     """Get dividend history"""
     try:
-        stock = yf.Ticker(ticker)
-        dividends = stock.dividends
+        track_symbol_request(ticker)
+        with YFINANCE_CALLS.labels(operation='get_dividends').time():
+            stock = yf.Ticker(ticker)
+            dividends = stock.dividends
         return {
             "ticker": ticker,
             "dividend_history": dividends.to_dict()

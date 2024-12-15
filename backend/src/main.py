@@ -24,8 +24,8 @@ async def get_current_price(ticker: str):
         if not data.empty:
             return {
                 "ticker": ticker,
-                "current_price": data['Close'].iloc[-1],
-                "volume": data['Volume'].iloc[-1],
+                "current_price": float(data['Close'].iloc[-1]),
+                "volume": int(data['Volume'].iloc[-1]),
                 "timestamp": datetime.now().isoformat()
             }
     except Exception as e:
@@ -61,10 +61,25 @@ async def get_company_info(ticker: str):
     try:
         stock = yf.Ticker(ticker)
         info = stock.info
-        return {
+        
+        # Return only essential company information
+        essential_info = {
             "ticker": ticker,
-            "company_info": info
+            "company_info": {
+                "longName": info.get("longName"),
+                "sector": info.get("sector"),
+                "industry": info.get("industry"),
+                "website": info.get("website"),
+                "marketCap": info.get("marketCap"),
+                "employees": info.get("fullTimeEmployees"),
+                "country": info.get("country"),
+                "city": info.get("city"),
+                "summary": info.get("longBusinessSummary"),
+                "currency": info.get("currency"),
+                "exchange": info.get("exchange")
+            }
         }
+        return essential_info
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 

@@ -8,6 +8,7 @@ from .metrics import (
     track_symbol_request,
     track_yfinance_operation,
     metrics_endpoint,
+    YFINANCE_CALLS
 )
 
 app = FastAPI(title="Market Data API")

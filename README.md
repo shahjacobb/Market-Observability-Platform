@@ -87,6 +87,24 @@ An observability platform ㅁthat analyzes real-time performance metrics and tra
   
   Access metrics at `/metrics` endpoint for Prometheus scraping.
 
+  #### Testing Metrics
+  ```bash
+  # View all metrics
+  curl http://localhost:8000/metrics | grep market_data
+
+  # Check request patterns
+  curl http://localhost:8000/metrics | grep request
+
+  # Monitor symbol requests
+  curl http://localhost:8000/metrics | grep stock_symbol_requests
+
+  # Check API latency
+  curl http://localhost:8000/metrics | grep yfinance_api_duration
+
+  # View error counts
+  curl http://localhost:8000/metrics | grep errors_total
+  ```
+
 - [ ] metrics to export
   - [x] stock price fetch latency
   - [x] successful vs failed yfinance calls

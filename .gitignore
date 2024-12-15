@@ -50,3 +50,8 @@ docker-compose.override.yml
 .coverage
 .pytest_cache/
 htmlcov/
+
+# Postman
+market_data_api_postman.json
+*.postman.json
+postman_collection.json

@@ -127,7 +127,10 @@ curl http://localhost:8000/stock/AAPL/price | jq '.' && echo -e "\n" && curl htt
 ```
 
 Response from endpoints:
-![Endpoint Responses](screenshots/endpoint_responses.png)
+
+<img width="635" alt="endpoints_responses" src="https://github.com/user-attachments/assets/25248dff-d54d-4484-beba-5a05f59c3a0a" />
+
+
 Shows the price data for AAPL and MSFT, and historical data for GOOGL with customizable time intervals.
 
 Here's the metrics these requests generated:
@@ -136,7 +139,10 @@ Here's the metrics these requests generated:
 ```bash
 curl http://localhost:8000/metrics | grep market_data_requests_total
 ```
-![Endpoint Hit Counter](screenshots/endpoint_hits.png)
+Response from endpoints:
+
+<img width="628" alt="endpoints_hits" src="https://github.com/user-attachments/assets/6737eb6f-2e83-48a7-b45c-da063f4a6cec" />
+
 Shows how many times each endpoint was called since the server started. In this case, we see two price endpoint hits (AAPL, MSFT) and one historical data request (GOOGL).
 
 ## stuff you need to run this

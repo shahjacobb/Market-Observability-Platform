@@ -87,16 +87,10 @@ An observability platform that analyzes real-time performance metrics and traces
   
   Access metrics at `/metrics` endpoint for Prometheus scraping.
 
-- [ ] metrics to export
+- [x] metrics to export
   - [x] stock price fetch latency
   - [x] successful vs failed yfinance calls
   - [x] number of unique symbols requested
-
-- [ ] traces to implement
-  - [ ] full request lifecycle for each endpoint
-  - [ ] yfinance api call duration
-  - [ ] data processing time
-  - [ ] symbol validation steps
 - [ ] docker stuff
   - [ ] create dockerfile for fastapi service
   - [ ] set up docker-compose for local dev

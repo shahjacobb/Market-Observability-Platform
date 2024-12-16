@@ -87,24 +87,6 @@ An observability platform ㅁthat analyzes real-time performance metrics and tra
   
   Access metrics at `/metrics` endpoint for Prometheus scraping.
 
-  #### Testing Metrics
-  ```bash
-  # View all metrics
-  curl http://localhost:8000/metrics | grep market_data
-
-  # Check request patterns
-  curl http://localhost:8000/metrics | grep request
-
-  # Monitor symbol requests
-  curl http://localhost:8000/metrics | grep stock_symbol_requests
-
-  # Check API latency
-  curl http://localhost:8000/metrics | grep yfinance_api_duration
-
-  # View error counts
-  curl http://localhost:8000/metrics | grep errors_total
-  ```
-
 - [ ] metrics to export
   - [x] stock price fetch latency
   - [x] successful vs failed yfinance calls
@@ -136,6 +118,26 @@ An observability platform ㅁthat analyzes real-time performance metrics and tra
 - **Metrics Storage**: Prometheus stores all the data
 - **Tracing**: OpenTelemetry helps track system behavior
 - **Visualization**: Grafana provides the UI layer for data visualization
+
+## Testing Prometheus Metrics Output
+
+First, testing some requests to our FastAPI server:
+```bash
+curl http://localhost:8000/stock/AAPL/price | jq '.' && echo -e "\n" && curl http://localhost:8000/stock/MSFT/price | jq '.' && echo -e "\n" && curl http://localhost:8000/stock/GOOGL/historical | jq '.'
+```
+
+Response from endpoints:
+![Endpoint Responses](screenshots/endpoint_responses.png)
+Shows the price data for AAPL and MSFT, and historical data for GOOGL with customizable time intervals.
+
+Here's the metrics these requests generated:
+
+### Endpoint Hit Counter
+```bash
+curl http://localhost:8000/metrics | grep market_data_requests_total
+```
+![Endpoint Hit Counter](screenshots/endpoint_hits.png)
+Shows how many times each endpoint was called since the server started. In this case, we see two price endpoint hits (AAPL, MSFT) and one historical data request (GOOGL).
 
 ## stuff you need to run this
 

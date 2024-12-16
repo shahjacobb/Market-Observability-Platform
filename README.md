@@ -1,6 +1,6 @@
 # Market Data API Observability Platform
 
-An observability platform ㅁthat analyzes real-time performance metrics and traces of YFinance API requests. Built with OpenTelemetry for monitoring, Prometheus for data collection, and Grafana for the UI visualization layer - uses [Docker-compose](https://docs.docker.com/compose/) to run each service in a Docker container.
+An observability platform that analyzes real-time performance metrics and traces of YFinance API requests. Built with Prometheus for data collection and metrics, and Grafana for the UI/monitoring - uses [Docker-compose](https://docs.docker.com/compose/) to run each service in a Docker container.
 
 ## Features
 - Get real-time stock data with YFinance

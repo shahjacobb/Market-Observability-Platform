@@ -95,17 +95,14 @@ An observability platform that analyzes real-time performance metrics and traces
   - [ ] create dockerfile for fastapi service
   - [ ] set up docker-compose for local dev
   - [ ] production docker config
-- [ ] prometheus setup
-  - [ ] collect basic metrics (req/s, latency)
-  - [ ] add yfinance-specific metrics
+- [x] prometheus setup
+  - [x] collect basic metrics (req/s, latency)
+  - [x] add yfinance-specific metrics
 - [ ] grafana dashboards
   - [ ] stock data request performance
   - [ ] yfinance api usage patterns
   - [ ] endpoint usage heatmap
-- [ ] opentelemetry implementation
-  - [ ] add spans for api endpoints
-  - [ ] configure exporters
-
+  - [ ] 
 ## How It Works
 
 - **Data Collection**: FastAPI grabs the data and tracks metrics
